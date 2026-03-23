@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
+    inputs:
+      upload-artifact:
+        type: boolean
+        default: true
+      upload-tag:
+        type: string
+        default: "nightly"
 
 # NOTE: F-Droid builder script 'flutter/build_fdroid.sh' reads environment
 # variables from this workflow!
@@ -51,7 +58,7 @@ jobs:
   build-RustDeskTempTopMostWindow:
     uses: ./.github/workflows/third-party-RustDeskTempTopMostWindow.yml
     with:
-      upload-artifact: ${{ inputs.upload-artifact }}
+      upload-artifact: "${{ inputs.upload-artifact }}"
       target: windows-2022
       configuration: Release
       platform: x64
